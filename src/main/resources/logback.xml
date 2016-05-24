@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration scan="true" scanPeriod="60 seconds" debug="false">
+	<property name="app.name" value="ssm" />
+	<contextName>${app.name}</contextName>
+	<appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+		<layout class="ch.qos.logback.classic.PatternLayout">
+			<Pattern>
+				%d{yyyy-MM-dd HH:mm:ss.SSS}-[%thread] |-%-5level - %msg%n
+			</Pattern>
+		</layout>
+	</appender>
+
+
+	<appender name="FILE" class="ch.qos.logback.core.FileAppender">
+		<file>F:/log/${app.name}/${app.name}.log</file>
+		<append>true</append>
+		<!-- 每天生成一个日志文件，保存30天的日志文件。 -->
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<fileNamePattern>${app.name}.%d{yyyy-MM-dd}.log</fileNamePattern>
+			<maxHistory>30</maxHistory>
+		</rollingPolicy>
+		<!-- 按照固定窗口模式生成日志文件，当文件大于20MB时，生成新的日志文件。窗口大小是1到3，当保存了3个归档文件后，将覆盖最早的日志。 -->
+		<!-- <rollingPolicy class="ch.qos.logback.core.rolling.FixedWindowRollingPolicy"> 
+			<fileNamePattern>${app.name}.%i.log.zip</fileNamePattern> <minIndex>1</minIndex> 
+			<maxIndex>3</maxIndex> </rollingPolicy> <triggeringPolicy class="ch.qos.logback.core.rolling.SizeBasedTriggeringPolicy"> 
+			<maxFileSize>20MB</maxFileSize> </triggeringPolicy> -->
+		<encoder>
+			<pattern>
+				%d{yyyy-MM-dd HH:mm:ss.SSS}-[%thread] |-%-5level - %msg%n
+			</pattern>
+		</encoder>
+	</appender>
+
+	<appender name="FILE.INFO" class="ch.qos.logback.core.FileAppender">
+		<file>F:/log/${app.name}/info/${app.name}Info.log</file>
+		<append>true</append>
+		<filter class="ch.qos.logback.classic.filter.LevelFilter">
+			<level>INFO</level>
+			<onMatch>ACCEPT</onMatch>
+			<onMismatch>DENY</onMismatch>
+		</filter>
+		<!-- 每天生成一个日志文件，保存30天的日志文件。 -->
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<fileNamePattern>${app.name}.%d{yyyy-MM-dd}.log</fileNamePattern>
+			<maxHistory>30</maxHistory>
+		</rollingPolicy>
+		<!-- 按照固定窗口模式生成日志文件，当文件大于20MB时，生成新的日志文件。窗口大小是1到3，当保存了3个归档文件后，将覆盖最早的日志。 -->
+		<!-- <rollingPolicy class="ch.qos.logback.core.rolling.FixedWindowRollingPolicy"> 
+			<fileNamePattern>${app.name}.%i.log.zip</fileNamePattern> <minIndex>1</minIndex> 
+			<maxIndex>3</maxIndex> </rollingPolicy> <triggeringPolicy class="ch.qos.logback.core.rolling.SizeBasedTriggeringPolicy"> 
+			<maxFileSize>20MB</maxFileSize> </triggeringPolicy> -->
+		<encoder>
+			<pattern>
+				%d{yyyy-MM-dd HH:mm:ss.SSS}-[%thread] |-%-5level - %msg%n
+			</pattern>
+		</encoder>
+	</appender>
+
+	<appender name="FILE.DEBUG" class="ch.qos.logback.core.FileAppender">
+		<file>F:/log/${app.name}/debug/${app.name}Debug.log</file>
+		<append>true</append>
+		<filter class="ch.qos.logback.classic.filter.LevelFilter">
+			<level>DEBUG</level>
+			<onMatch>ACCEPT</onMatch>
+			<onMismatch>DENY</onMismatch>
+		</filter>
+		<!-- 每天生成一个日志文件，保存30天的日志文件。 -->
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<fileNamePattern>${app.name}.%d{yyyy-MM-dd}.log</fileNamePattern>
+			<maxHistory>30</maxHistory>
+		</rollingPolicy>
+		<!-- 按照固定窗口模式生成日志文件，当文件大于20MB时，生成新的日志文件。窗口大小是1到3，当保存了3个归档文件后，将覆盖最早的日志。 -->
+		<!-- <rollingPolicy class="ch.qos.logback.core.rolling.FixedWindowRollingPolicy"> 
+			<fileNamePattern>${app.name}.%i.log.zip</fileNamePattern> <minIndex>1</minIndex> 
+			<maxIndex>3</maxIndex> </rollingPolicy> <triggeringPolicy class="ch.qos.logback.core.rolling.SizeBasedTriggeringPolicy"> 
+			<maxFileSize>20MB</maxFileSize> </triggeringPolicy> -->
+		<encoder>
+			<pattern>
+				%d{yyyy-MM-dd HH:mm:ss.SSS}-[%thread] |-%-5level - %msg%n
+			</pattern>
+		</encoder>
+	</appender>
+
+
+	<appender name="FILE.ERROR" class="ch.qos.logback.core.FileAppender">
+		<file>F:/log/${app.name}/error/${app.name}Error.log</file>
+		<append>true</append>
+		<filter class="ch.qos.logback.classic.filter.LevelFilter">
+			<level>ERROR</level>
+			<onMatch>ACCEPT</onMatch>
+			<onMismatch>DENY</onMismatch>
+		</filter>
+		<!-- 每天生成一个日志文件，保存30天的日志文件。 -->
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<fileNamePattern>${app.name}.%d{yyyy-MM-dd}.log</fileNamePattern>
+			<maxHistory>30</maxHistory>
+		</rollingPolicy>
+		<!-- 按照固定窗口模式生成日志文件，当文件大于20MB时，生成新的日志文件。窗口大小是1到3，当保存了3个归档文件后，将覆盖最早的日志。 -->
+		<!-- <rollingPolicy class="ch.qos.logback.core.rolling.FixedWindowRollingPolicy"> 
+			<fileNamePattern>${app.name}.%i.log.zip</fileNamePattern> <minIndex>1</minIndex> 
+			<maxIndex>3</maxIndex> </rollingPolicy> <triggeringPolicy class="ch.qos.logback.core.rolling.SizeBasedTriggeringPolicy"> 
+			<maxFileSize>20MB</maxFileSize> </triggeringPolicy> -->
+		<encoder>
+			<pattern>
+				%d{yyyy-MM-dd HH:mm:ss.SSS}-[%thread] |-%-5level - %msg%n
+			</pattern>
+		</encoder>
+	</appender>
+	<logger name="logback" />
+
+	<!-- <logger name="xuan.wen.qin" level="TRACE" additivity="false"> <appender-ref 
+		ref="STDOUT" /> </logger> -->
+
+	<logger name="xuan.wen.qin" level="TRACE" />
+
+	<root level="DEBUG">
+		<appender-ref ref="STDOUT" />
+		<appender-ref ref="FILE" />
+		<appender-ref ref="FILE.INFO" />
+		<appender-ref ref="FILE.DEBUG" />
+		<appender-ref ref="FILE.ERROR" />
+	</root>
+</configuration>
