@@ -1,6 +1,5 @@
 package xuan.wen.qin.ssm.controller;
 
-import java.util.HashMap;
 import java.util.Map;
 
 import javax.validation.Valid;
@@ -57,14 +56,10 @@ public class TestController extends BasiceController {
 	public Map<String, Object> save(@Valid TestSaveForm form,
 			BindingResult error) {
 		this.valided(error);
-		Map<String, Object> jsonMap = new HashMap<String, Object>();
-		jsonMap.put(CODE, "400");
-		jsonMap.put(MESSAGE, "save fail");
-		int result = 0;
-		result = testService.save(form);
+		int result = testService.save(form);
 		if (result > 0) {
-			jsonMap.put(CODE, "200");
-			jsonMap.put(MESSAGE, "save success");
+			jsonMap.put(CODE, SUCCESS_CODE);
+			jsonMap.put(MESSAGE, SUCCESS_MESSAGE);
 		}
 		return jsonMap;
 	}
