@@ -23,6 +23,8 @@
 		<jackson.version>2.7.3</jackson.version>
 		<mybatiSpring.version>1.2.4</mybatiSpring.version>
 		<mybatis.version>3.3.1</mybatis.version>
+		<hibernate.version>5.2.4.Final</hibernate.version>
+		<lombok.version>1.16.8</lombok.version>
 		<encoding>UTF-8</encoding>
 		<port>8087</port>
 		<path>/</path>
@@ -111,7 +113,7 @@
 			<artifactId>druid</artifactId>
 			<version>${druid.version}</version>
 		</dependency>
-		<!-- jackson.mybatis -->
+		<!-- mybatis.dependency -->
 		<dependency>
 			<groupId>org.mybatis</groupId>
 			<artifactId>mybatis-spring</artifactId>
@@ -121,6 +123,18 @@
 			<groupId>org.mybatis</groupId>
 			<artifactId>mybatis</artifactId>
 			<version>${mybatis.version}</version>
+		</dependency>
+		<!-- validator.dependency -->
+		<dependency>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-validator</artifactId>
+			<version>${hibernate.version}</version>
+		</dependency>
+		<!-- lombok.dependency -->
+		<dependency>
+			<groupId>org.projectlombok</groupId>
+			<artifactId>lombok</artifactId>
+			<version>${lombok.version}</version>
 		</dependency>
 	</dependencies>
 	<build>
