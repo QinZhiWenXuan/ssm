@@ -15,8 +15,7 @@
 	http://www.springframework.org/schema/tx/spring-tx-4.2.xsd
 	 http://www.springframework.org/schema/mvc  
 	 http://www.springframework.org/schema/mvc/spring-mvc-4.2.xsd"
-	default-lazy-init="true">
-
+	default-lazy-init="true" >
 	<!-- 加载配置文件 -->
 	<bean
 		class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
@@ -36,7 +35,7 @@
 		<property name="password" value="${mysql.password}" />
 		<property name="initialSize" value="${druid.initialSize}" />
 		<property name="maxActive" value="${druid.maxActive}" />
-		<property name="maxIdle" value="${druid.maxIdle}" />
+		<!-- <property name="maxIdle" value="${druid.maxIdle}" /> -->
 		<property name="minIdle" value="${druid.minIdle}" />
 		<property name="maxWait" value="${druid.maxWait}" />
 		<property name="removeAbandoned" value="${druid.removeAbandoned}" />
@@ -53,11 +52,11 @@
 		<property name="filters" value="${druid.filters}" />
 	</bean>
 	<!-- 启用注解事务 -->
-	<bean id="txManager"
+	<bean id="transactionManager"
 		class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
 		<property name="dataSource" ref="dataSource" />
 	</bean>
-	<tx:annotation-driven transaction-manager="txManager" />
+	<tx:annotation-driven transaction-manager="transactionManager" />
 
 	<!-- mybatis -->
 	<bean class="org.mybatis.spring.SqlSessionFactoryBean" name="sqlSessionFactory"

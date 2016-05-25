@@ -111,7 +111,9 @@
 	<!-- <logger name="xuan.wen.qin" level="TRACE" additivity="false"> <appender-ref 
 		ref="STDOUT" /> </logger> -->
 
-	<logger name="xuan.wen.qin" level="TRACE" />
+	<logger name="xuan.wen.qin" level="DEBUG" />
+
+	<logger name="org.springframework" level="DEBUG" />
 
 	<root level="DEBUG">
 		<appender-ref ref="STDOUT" />
