@@ -56,7 +56,6 @@
 		class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
 		<property name="dataSource" ref="dataSource" />
 	</bean>
-	<tx:annotation-driven transaction-manager="transactionManager" />
 
 	<!-- mybatis -->
 	<bean class="org.mybatis.spring.SqlSessionFactoryBean" name="sqlSessionFactory"

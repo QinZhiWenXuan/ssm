@@ -20,7 +20,7 @@
 	<!-- 启用注解 -->
 	<context:component-scan base-package="xuan.wen.qin.ssm" />
 	<mvc:annotation-driven validator="validator" />
-
+	<tx:annotation-driven transaction-manager="transactionManager" />
 	<bean id="validator"
 		class="org.springframework.validation.beanvalidation.LocalValidatorFactoryBean">
 		<property name="providerClass" value="org.hibernate.validator.HibernateValidator" />
