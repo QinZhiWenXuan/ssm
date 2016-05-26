@@ -63,6 +63,5 @@ public class BasiceController {
 			logger.error("校验失败 : {}", message);
 			throw new SsmVaildException(message);
 		}
-
 	}
 }

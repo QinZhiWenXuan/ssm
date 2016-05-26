@@ -31,7 +31,7 @@ public class TestServiceImpl extends BasiceServiceImpl implements TestService {
 	@Override
 	public int save(TestSaveForm form) {
 		testMapper.save(form);
-		throw new SsmException();
+		return form.getId();
 	}
 
 }
