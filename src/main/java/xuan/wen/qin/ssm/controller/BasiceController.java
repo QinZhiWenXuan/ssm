@@ -27,6 +27,7 @@ import xuan.wen.qin.ssm.service.TestService;
 @Controller
 public class BasiceController {
 	protected static final String CODE = "code";
+	protected static final String INFO = "info";
 	protected static final String MESSAGE = "message";
 	protected static final String FAIL_CODE = "400";
 	protected static final String SUCCESS_CODE = "200";

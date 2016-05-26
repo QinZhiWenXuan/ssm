@@ -1,5 +1,6 @@
 package xuan.wen.qin.ssm.controller;
 
+import java.util.List;
 import java.util.Map;
 
 import javax.validation.Valid;
@@ -60,6 +61,23 @@ public class TestController extends BasiceController {
 		if (result > 0) {
 			jsonMap.put(CODE, SUCCESS_CODE);
 			jsonMap.put(MESSAGE, SUCCESS_MESSAGE);
+		}
+		return jsonMap;
+	}
+
+	/***
+	 * 获取列表信息
+	 * 
+	 * @return 列表信息
+	 */
+	@RequestMapping(value = "get/list.jspx", method = { RequestMethod.GET }, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+	@ResponseBody
+	public Map<String, Object> getList() {
+		List<Map<String, ?>> info = testService.getList();
+		if (null != info && info.size() > 0) {
+			jsonMap.put(CODE, SUCCESS_CODE);
+			jsonMap.put(MESSAGE, SUCCESS_MESSAGE);
+			jsonMap.put(INFO, info);
 		}
 		return jsonMap;
 	}

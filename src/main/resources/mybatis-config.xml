@@ -3,10 +3,14 @@
   PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-config.dtd">
 <configuration>
-	<!-- 设置空值 
+	<!-- 设置空值 -->
 	<settings>
 		<setting name="callSettersOnNulls" value="true" />
 		<setting name="jdbcTypeForNull" value="OTHER" />
 	</settings>
-	-->
+	<typeHandlers>
+		<typeHandler
+			handler="xuan.wen.qin.ssm.common.ibatis.type.CustomTimeStampHandler"
+			javaType="java.util.Date" jdbcType="TIMESTAMP" />
+	</typeHandlers>
 </configuration>

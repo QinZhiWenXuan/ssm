@@ -1,5 +1,8 @@
 package xuan.wen.qin.ssm.service;
 
+import java.util.List;
+import java.util.Map;
+
 import xuan.wen.qin.ssm.model.entity.form.TestSaveForm;
 
 /**
@@ -22,5 +25,12 @@ public interface TestService extends BasiceService {
 	 * @return 保存ID
 	 */
 	int save(TestSaveForm form);
+
+	/***
+	 * 获取列表集合
+	 * 
+	 * @return 列表集合
+	 */
+	List<Map<String, ?>> getList();
 
 }

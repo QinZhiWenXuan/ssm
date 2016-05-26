@@ -3,9 +3,46 @@
     PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="xuan.wen.qin.ssm.model.repository.mapper.TestMapper">
+	<resultMap type="java.util.Map" id="basiceMap">
+		<result property="id" column="id" javaType="java.lang.Integer" />
+		<result property="remark" column="remark" javaType="java.lang.String" />
+		<result property="description" column="description" javaType="java.lang.String" />
+		<result property="deleted" column="deleted" javaType="java.lang.Boolean" />
+		<result property="addTime" column="addTime" javaType="java.util.Date"
+			jdbcType="TIMESTAMP" typeHandler="xuan.wen.qin.ssm.common.ibatis.type.CustomTimeStampHandler" />
+		<result property="editTime" column="editTime" javaType="java.util.Date"
+			jdbcType="TIMESTAMP" typeHandler="xuan.wen.qin.ssm.common.ibatis.type.CustomTimeStampHandler" />
+	</resultMap>
+
+	<resultMap type="xuan.wen.qin.ssm.model.entity.vo.TestVO" id="basiceResult">
+		<result property="id" column="id" />
+		<result property="remark" column="remark" />
+		<result property="description" column="description" />
+		<result property="deleted" column="deleted" />
+		<result property="addTime" column="addTime" javaType="java.util.Date"
+			jdbcType="TIMESTAMP" typeHandler="xuan.wen.qin.ssm.common.ibatis.type.CustomTimeStampHandler" />
+		<result property="editTime" column="editTime" javaType="java.util.Date"
+			jdbcType="TIMESTAMP" typeHandler="xuan.wen.qin.ssm.common.ibatis.type.CustomTimeStampHandler" />
+	</resultMap>
+
+	<select id="query" statementType="STATEMENT" useCache="true"
+		resultMap="basiceMap">
+		<include refid="queryBasiceSQL" />
+	</select>
+
+	<select id="queryById" statementType="STATEMENT" useCache="true"
+		resultMap="basiceMap">
+		<include refid="queryBasiceSQL" />
+		<include refid="byIdSQL" />
+	</select>
+	<select id="queryForVO" statementType="STATEMENT" useCache="true"
+		resultMap="basiceResult">
+		<include refid="queryBasiceSQL" />
+	</select>
+
 	<insert id="save" parameterType="xuan.wen.qin.ssm.model.entity.form.TestSaveForm"
-		statementType="STATEMENT" useGeneratedKeys="true" keyColumn="`id`"
-		keyProperty="id">
+		statementType="STATEMENT" flushCache="true" useGeneratedKeys="true"
+		keyColumn="`id`" keyProperty="id">
 		<![CDATA[
 			INSERT INTO `ssm_test` (
 				`test_remark`,
@@ -18,4 +55,49 @@
 			)
 		]]>
 	</insert>
+
+	<update id="update" parameterType="xuan.wen.qin.ssm.model.entity.form.TestEditForm"
+		flushCache="true" statementType="STATEMENT">
+		UPDATE `ssm_test`
+		<set>
+			`edit_time` = CURRENT_TIMESTAMP(),
+			`test_remark`='${form.remark}',
+			`test_description`='${form.description}'
+		</set>
+		<where>
+			`id` = ${form.id}
+		</where>
+	</update>
+
+	<update id="deleteById" flushCache="true" statementType="STATEMENT">
+		UPDATE `ssm_test`
+		<set>
+			`is_delete` = 1,
+			`edit_time` = CURRENT_TIMESTAMP()
+		</set>
+		<include refid="byIdSQL" />
+	</update>
+
+	<delete id="removeById" statementType="STATEMENT" flushCache="true">
+		DELETE FROM `ssm_test`
+		<include refid="byIdSQL" />
+	</delete>
+
+	<sql id="byIdSQL">
+		WHERE `id` = ${id}
+	</sql>
+
+	<sql id="queryBasiceSQL">
+		<![CDATA[
+			SELECT
+				`id` AS id,
+				`test_remark` AS remark,
+				`test_description` AS description,
+				`is_delete` AS deleted,
+				`add_time` AS 'addTime',
+				`edit_time` AS editTime
+			FROM
+				`ssm_test`
+		]]>
+	</sql>
 </mapper>

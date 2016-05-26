@@ -1,5 +1,8 @@
 package xuan.wen.qin.ssm.service.impl;
 
+import java.util.List;
+import java.util.Map;
+
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -32,6 +35,17 @@ public class TestServiceImpl extends BasiceServiceImpl implements TestService {
 	public int save(TestSaveForm form) {
 		testMapper.save(form);
 		return form.getId();
+	}
+
+	/***
+	 * 获取列表集合
+	 * 
+	 * @return 列表集合
+	 */
+	@Override
+	public List<Map<String, ?>> getList() {
+		// TODO Auto-generated method stub
+		return testMapper.query();
 	}
 
 }

@@ -6,14 +6,22 @@ var testFn = {
 		var param = $('#saveForm').serialize();
 		if (param) {
 			$.post(url, param, function(data) {
-				console.log('save result : ' + data.code);
-				testFn.getListMod();
+				var code = data.code;
+				if (200 == code) {
+					testFn.getListMod();
+				} else {
+					alert(data.message);
+				}
 			});
 		} else {
 			return false;
 		}
 	},
 	getListMod : function() {
-		console.debug('获取列表信息……');
+		var url = '/test/get/list.jspx';
+		$.get(url, function(data) {
+			var code = data.code;
+			console.debug('code :' + code);
+		});
 	}
 };
