@@ -21,6 +21,8 @@
 	<context:component-scan base-package="xuan.wen.qin.ssm" />
 	<mvc:annotation-driven validator="validator" />
 	<tx:annotation-driven transaction-manager="transactionManager" />
+	<!-- 开启Spring对aspectj做自动代理 -->
+	<aop:aspectj-autoproxy />
 	<bean id="validator"
 		class="org.springframework.validation.beanvalidation.LocalValidatorFactoryBean">
 		<property name="providerClass" value="org.hibernate.validator.HibernateValidator" />
