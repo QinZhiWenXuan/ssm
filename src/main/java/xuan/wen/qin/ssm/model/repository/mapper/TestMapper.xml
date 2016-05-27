@@ -39,7 +39,10 @@
 		resultMap="basiceResult">
 		<include refid="queryBasiceSQL" />
 	</select>
-
+	<select id="queryByPage" statementType="STATEMENT" useCache="true"
+		resultMap="basiceMap">
+		<include refid="queryBasiceSQL" />
+	</select>
 	<insert id="save" parameterType="xuan.wen.qin.ssm.model.entity.form.TestSaveForm"
 		statementType="STATEMENT" flushCache="true" useGeneratedKeys="true"
 		keyColumn="`id`" keyProperty="id">

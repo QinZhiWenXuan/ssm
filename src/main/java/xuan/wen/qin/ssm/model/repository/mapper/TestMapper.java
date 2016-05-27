@@ -1,10 +1,12 @@
 package xuan.wen.qin.ssm.model.repository.mapper;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
+import xuan.wen.qin.ssm.common.web.servlet.PageModel;
 import xuan.wen.qin.ssm.model.entity.form.TestEditForm;
 import xuan.wen.qin.ssm.model.entity.form.TestSaveForm;
 import xuan.wen.qin.ssm.model.entity.vo.TestVO;
@@ -46,5 +48,15 @@ public interface TestMapper extends BasiceMapper {
 	 * @return 受影响行数
 	 */
 	int update(@Param(value = "form") TestEditForm form);
+
+	/***
+	 * 分页查询
+	 * 
+	 * @param pageModel
+	 *            分页实体
+	 * @return 结果集
+	 */
+	List<Map<String, ?>> queryByPage(
+			@Param(value = "pageModel") PageModel<Map<String, ?>> pageModel);
 
 }

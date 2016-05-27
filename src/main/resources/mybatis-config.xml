@@ -13,4 +13,8 @@
 			handler="xuan.wen.qin.ssm.common.ibatis.type.CustomTimeStampHandler"
 			javaType="java.util.Date" jdbcType="TIMESTAMP" />
 	</typeHandlers>
+	<plugins>
+		<plugin
+			interceptor="xuan.wen.qin.ssm.common.ibatis.plugin.impl.PageInterceptorImpl" />
+	</plugins>
 </configuration>

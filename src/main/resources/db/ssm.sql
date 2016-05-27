@@ -38,7 +38,36 @@ CREATE TABLE `ssm_db`.`ssm_test` (
   `edit_time` TIMESTAMP NOT NULL DEFAULT '0000-00-00 00:00:000' COMMENT '修改时间,默认0000-00-00 00:00:000',
   PRIMARY KEY (`id`),
   INDEX index_test_remark (`test_remark`)
-) ENGINE = INNODB AUTO_INCREMENT = 1 DEFAULT CHARSET = utf8 COMMENT '用户信息表' ;
+) ENGINE = INNODB AUTO_INCREMENT = 1 DEFAULT CHARSET = utf8 COMMENT '测试表' ;
+
+DROP TABLE IF EXISTS `ssm_db`.`ssm_test_master` ;
+
+CREATE TABLE `ssm_db`.`ssm_test_master` (
+  `id` INT (11) NOT NULL AUTO_INCREMENT COMMENT '主键ID,自增',
+  `test_remark` VARCHAR (32) NOT NULL COMMENT '备注',
+  `test_description` VARCHAR (32) DEFAULT '' COMMENT '描述',
+  `is_delete` TINYINT (1) DEFAULT 0 COMMENT '删除标志,默认0,1删除',
+  `add_time` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP() COMMENT '添加时间,默认当前时间',
+  `edit_time` TIMESTAMP NOT NULL DEFAULT '0000-00-00 00:00:000' COMMENT '修改时间,默认0000-00-00 00:00:000',
+  PRIMARY KEY (`id`),
+  INDEX index_test_remark (`test_remark`)
+) ENGINE = INNODB AUTO_INCREMENT = 1 DEFAULT CHARSET = utf8 COMMENT '测试主表' ;
+
+
+DROP TABLE IF EXISTS `ssm_db`.`ssm_test_slave` ;
+
+CREATE TABLE `ssm_db`.`ssm_test_slave` (
+  `id` INT (11) NOT NULL AUTO_INCREMENT COMMENT '主键ID,自增',
+  `master_id` INT (11) NOT NULL COMMENT '主表ID',
+  `test_theme` VARCHAR (32) DEFAULT '' COMMENT '主题',
+  `test_target` VARCHAR (32) DEFAULT '' COMMENT '描述',
+  `is_delete` TINYINT (1) DEFAULT 0 COMMENT '删除标志,默认0,1删除',
+  `add_time` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP() COMMENT '添加时间,默认当前时间',
+  `edit_time` TIMESTAMP NOT NULL DEFAULT '0000-00-00 00:00:000' COMMENT '修改时间,默认0000-00-00 00:00:000',
+  PRIMARY KEY (`id`),
+  INDEX index_test_theme (`test_theme`)
+) ENGINE = INNODB AUTO_INCREMENT = 1 DEFAULT CHARSET = utf8 COMMENT '测试分表' ;
+
 
 
 

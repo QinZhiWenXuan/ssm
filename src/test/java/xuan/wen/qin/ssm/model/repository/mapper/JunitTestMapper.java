@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import xuan.wen.qin.ssm.common.web.servlet.PageModel;
 import xuan.wen.qin.ssm.model.entity.form.TestEditForm;
 import xuan.wen.qin.ssm.model.entity.form.TestSaveForm;
 import xuan.wen.qin.ssm.model.entity.vo.TestVO;
@@ -84,5 +85,16 @@ public class JunitTestMapper {
 		form.setRemark("瞧瞧你们这群咸鱼。--来这远方的猫");
 		form.setDescription("This is description ...");
 		testMapper.update(form);
+	}
+
+	@Test
+	public void queryByPage() {
+		PageModel<Map<String, ?>> pageModel = new PageModel<Map<String, ?>>();
+		pageModel.setPageIndex(2);
+		pageModel.setPageSize(2);
+		List<Map<String, ?>> listColl = testMapper.queryByPage(pageModel);
+		pageModel.setDataColl(listColl);
+		logger.debug("queryByPage : {}", listColl.toString());
+		logger.debug("pageModel : {}", pageModel.toString());
 	}
 }

@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="xuan.wen.qin.ssm.model.repository.mapper.TestMasterMapper">
+	<resultMap type="java.util.Map" id="basiceMap">
+		<result property="id" column="`id`" javaType="java.lang.Integer" />
+		<result property="remark" column="`test_remark`" javaType="java.lang.String" />
+		<result property="description" column="`test_description`"
+			javaType="java.lang.String" />
+		<result property="deleted" column="`is_delete`" javaType="java.lang.Boolean" />
+		<result property="addTime" column="`add_time`" javaType="java.util.Date"
+			jdbcType="TIMESTAMP" typeHandler="xuan.wen.qin.ssm.common.ibatis.type.CustomTimeStampHandler" />
+		<result property="editTime" column="`edit_time`" javaType="java.util.Date"
+			jdbcType="TIMESTAMP" typeHandler="xuan.wen.qin.ssm.common.ibatis.type.CustomTimeStampHandler" />
+	</resultMap>
+
+	<resultMap type="java.util.Map" id="loadMap">
+		<result property="id" column="id" javaType="java.lang.Integer" />
+		<result property="remark" column="test_remark" javaType="java.lang.String" />
+		<result property="description" column="test_description"
+			javaType="java.lang.String" />
+		<result property="deleted" column="is_delete" javaType="java.lang.Boolean" />
+		<result property="addTime" column="add_time" javaType="java.util.Date"
+			jdbcType="TIMESTAMP" typeHandler="xuan.wen.qin.ssm.common.ibatis.type.CustomTimeStampHandler" />
+		<result property="editTime" column="edit_time" javaType="java.util.Date"
+			jdbcType="TIMESTAMP" typeHandler="xuan.wen.qin.ssm.common.ibatis.type.CustomTimeStampHandler" />
+		<collection property="slaveColl" column="id" autoMapping="true"
+			fetchType="lazy" ofType="java.util.Map"
+			select="xuan.wen.qin.ssm.model.repository.mapper.TestSlaveMapper.loadByMasterId" />
+	</resultMap>
+
+	<resultMap type="java.util.Map" id="queryAllMap">
+		<result property="id" column="id" javaType="java.lang.Integer" />
+		<result property="remark" column="test_remark" javaType="java.lang.String" />
+		<result property="description" column="test_description"
+			javaType="java.lang.String" />
+		<result property="deleted" column="is_delete" javaType="java.lang.Boolean" />
+		<result property="addTime" column="add_time" javaType="java.util.Date"
+			jdbcType="TIMESTAMP" typeHandler="xuan.wen.qin.ssm.common.ibatis.type.CustomTimeStampHandler" />
+		<result property="editTime" column="edit_time" javaType="java.util.Date"
+			jdbcType="TIMESTAMP" typeHandler="xuan.wen.qin.ssm.common.ibatis.type.CustomTimeStampHandler" />
+		<collection property="slaveColl" column="id" autoMapping="true"
+			fetchType="lazy" ofType="java.util.Map">
+			<result property="id" column="id" javaType="java.lang.Integer" />
+			<result property="master" column="master_id" javaType="java.lang.Integer" />
+			<result property="theme" column="test_theme" javaType="java.lang.String" />
+			<result property="target" column="test_target" javaType="java.lang.String" />
+			<result property="deleted" column="is_delete" javaType="java.lang.Boolean" />
+			<result property="addTime" column="add_time" javaType="java.util.Date"
+				jdbcType="TIMESTAMP"
+				typeHandler="xuan.wen.qin.ssm.common.ibatis.type.CustomTimeStampHandler" />
+			<result property="editTime" column="edit_time" javaType="java.util.Date"
+				jdbcType="TIMESTAMP"
+				typeHandler="xuan.wen.qin.ssm.common.ibatis.type.CustomTimeStampHandler" />
+		</collection>
+	</resultMap>
+
+	<select id="load" statementType="STATEMENT" useCache="true"
+		resultMap="loadMap">
+		<include refid="queryBasiceSQL" />
+	</select>
+
+	<select id="queryAll" statementType="STATEMENT" useCache="true"
+		resultMap="queryAllMap">
+		<![CDATA[
+			SELECT
+				m.*,
+				s.*
+			FROM
+				`ssm_test_master` AS m
+			LEFT JOIN `ssm_test_slave` AS s
+				ON m.`id` = s.`master_id`
+		]]>
+	</select>
+
+	<sql id="queryBasiceSQL">
+		SELECT * FROM `ssm_test_master`
+	</sql>
+</mapper>
