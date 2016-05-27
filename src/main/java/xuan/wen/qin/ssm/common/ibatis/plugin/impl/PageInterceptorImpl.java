@@ -1,6 +1,5 @@
 package xuan.wen.qin.ssm.common.ibatis.plugin.impl;
 
-import java.lang.reflect.Field;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -18,6 +17,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import xuan.wen.qin.ssm.common.ibatis.plugin.PageInterceptor;
+import xuan.wen.qin.ssm.common.utils.ReflecTools;
+import xuan.wen.qin.ssm.common.utils.impl.ReflecToolsImpl;
 import xuan.wen.qin.ssm.common.web.servlet.PageModel;
 
 /**
@@ -34,6 +35,7 @@ import xuan.wen.qin.ssm.common.web.servlet.PageModel;
 public class PageInterceptorImpl implements PageInterceptor {
 	private static final Logger logger = LoggerFactory
 			.getLogger(PageInterceptorImpl.class);
+	private static final ReflecTools reflecTools = new ReflecToolsImpl();
 
 	@Override
 	public Object intercept(Invocation invocation) throws Throwable {
@@ -41,8 +43,8 @@ public class PageInterceptorImpl implements PageInterceptor {
 		if (invocation.getTarget() instanceof RoutingStatementHandler) {
 			RoutingStatementHandler handler = (RoutingStatementHandler) invocation
 					.getTarget();
-			StatementHandler delegate = (StatementHandler) this.getField(
-					handler, "delegate");
+			StatementHandler delegate = (StatementHandler) reflecTools
+					.getFieldValue(handler, "delegate");
 			BoundSql boundSql = delegate.getBoundSql();
 			Object parameterObject = boundSql.getParameterObject();
 			pageModel = this.getPageModel(parameterObject);
@@ -53,7 +55,7 @@ public class PageInterceptorImpl implements PageInterceptor {
 				int count = this.getCount(connection, countSql);
 				pageModel.setTotal(count);
 				String pageSql = this.getPageSql(pageModel, sql);
-				this.setFieldValue(boundSql, "sql", pageSql);
+				reflecTools.setFieldValue(boundSql, "sql", pageSql);
 			}
 		}
 		return invocation.proceed();
@@ -66,57 +68,8 @@ public class PageInterceptorImpl implements PageInterceptor {
 
 	@Override
 	public void setProperties(Properties properties) {
+		logger.debug("setProperties....");
 
-	}
-
-	/***
-	 * 通过反射获取成员变量
-	 * 
-	 * @param instance
-	 *            目标
-	 * @param fieldName
-	 *            目标成员变量名称
-	 * @return 成员变量
-	 * @throws Throwable
-	 */
-	private Field getFileByName(Object instance, String fieldName)
-			throws Throwable {
-		Field field = instance.getClass().getDeclaredField(fieldName);
-		field.setAccessible(true);
-		return field;
-	}
-
-	/***
-	 * 通过反射获取成员变量的值
-	 * 
-	 * @param instance
-	 *            目标
-	 * @param fieldName
-	 *            目标成员变量名称
-	 * @return 成员变量的值
-	 * @throws Throwable
-	 */
-	private Object getField(Object instance, String fieldName) throws Throwable {
-		Field field = this.getFileByName(instance, fieldName);
-		return field.get(instance);
-	}
-
-	/***
-	 * 通过反射设置成员变量的值
-	 * 
-	 * @param instance
-	 *            目标
-	 * @param fieldName
-	 *            目标成员变量名称
-	 * @param fieldValue
-	 *            成员变量的值
-	 * @throws Throwable
-	 */
-	private void setFieldValue(Object instance, String fieldName,
-			Object fieldValue) throws Throwable {
-		Field field = this.getFileByName(instance, fieldName);
-		field.setAccessible(true);
-		field.set(instance, fieldValue);
 	}
 
 	/***
@@ -177,11 +130,8 @@ public class PageInterceptorImpl implements PageInterceptor {
 				pageModel = (PageModel<?>) map.get("pageModel");
 			}
 		} else {
-			Field pageField = this.getFileByName(parameterObject, "pageModel");
-			if (null != pageField) {
-				pageModel = (PageModel<?>) this.getField(parameterObject,
-						"pageModel");
-			}
+			pageModel = (PageModel<?>) reflecTools.getFieldValue(
+					parameterObject, "pageModel");
 		}
 		return pageModel;
 
@@ -196,7 +146,7 @@ public class PageInterceptorImpl implements PageInterceptor {
 	 *            原SQL
 	 * @return 分页SQL
 	 */
-	private String getPageSql(PageModel pageModel, String sql) {
+	private String getPageSql(PageModel<?> pageModel, String sql) {
 		StringBuilder result = new StringBuilder(sql);
 		result.append(" LIMIT ").append(pageModel.getStartRow()).append(" , ")
 				.append(pageModel.getPageSize());
