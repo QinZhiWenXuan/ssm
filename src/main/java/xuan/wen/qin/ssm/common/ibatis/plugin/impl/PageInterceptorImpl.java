@@ -82,7 +82,7 @@ public class PageInterceptorImpl implements PageInterceptor {
 	private String getCountSql(String sql) {
 		StringBuilder result = new StringBuilder(" SELECT COUNT(*) ");
 		int fromIndex = sql.toUpperCase().indexOf("FROM");
-		int orderIndex = sql.toUpperCase().indexOf("ORDER");
+		int orderIndex = sql.toUpperCase().lastIndexOf("ORDER");
 		orderIndex = orderIndex > 0 ? orderIndex : sql.length();
 		sql = sql.substring(fromIndex, orderIndex);
 		result.append(sql);

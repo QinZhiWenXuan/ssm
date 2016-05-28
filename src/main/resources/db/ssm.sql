@@ -68,6 +68,22 @@ CREATE TABLE `ssm_db`.`ssm_test_slave` (
   INDEX index_test_theme (`test_theme`)
 ) ENGINE = INNODB AUTO_INCREMENT = 1 DEFAULT CHARSET = utf8 COMMENT '测试分表' ;
 
-
-
+INSERT INTO `ssm_db`.`ssm_test_master` (
+  `test_remark`,
+  `test_description`
+) 
+VALUES
+  ('这是备注', '这是描述') ;
+  
+INSERT INTO `ssm_db`.`ssm_test_slave` (
+  `master_id`,
+  `test_theme`,
+  `test_target`
+) 
+VALUES
+  (1, '这是主题', '这是目标') ,
+  (1, '苟利国家生死以', '岂因祸福趋避之')
+  ;
+  
+ 
 
