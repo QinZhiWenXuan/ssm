@@ -12,6 +12,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 
 import xuan.wen.qin.ssm.common.exception.SsmVaildException;
+import xuan.wen.qin.ssm.service.FileService;
 import xuan.wen.qin.ssm.service.TestService;
 
 /**
@@ -25,7 +26,10 @@ import xuan.wen.qin.ssm.service.TestService;
  * @Address by siShangJie
  */
 @Controller
-public class BasiceController {
+public abstract class BasiceController {
+	private static final Logger logger = LoggerFactory
+			.getLogger(BasiceController.class);
+
 	protected static final String CODE = "code";
 	protected static final String INFO = "info";
 	protected static final String MESSAGE = "message";
@@ -37,16 +41,17 @@ public class BasiceController {
 	@Autowired(required = true)
 	@Qualifier(value = "testService")
 	protected TestService testService;
-	private static final Logger logger = LoggerFactory
-			.getLogger(BasiceController.class);
+	@Autowired(required = true)
+	@Qualifier(value = "fileService")
+	protected FileService fileService;
 
 	/***
 	 * @remark 可以准备一些重复使用的数据 <br>
 	 *         初始化
 	 */
 	@ModelAttribute
-	public void init() {
-		logger.debug("controller init...");
+	protected void init() {
+		logger.debug("basiceController init...");
 		jsonMap = new HashMap<String, Object>(3);
 		jsonMap.put(CODE, FAIL_CODE);
 		jsonMap.put(MESSAGE, FAIL_MESSAGE);
