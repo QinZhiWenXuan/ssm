@@ -3,10 +3,16 @@
   PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-config.dtd">
 <configuration>
-	<!-- 设置空值 -->
 	<settings>
+		<!-- 设置空值 -->
 		<setting name="callSettersOnNulls" value="true" />
 		<setting name="jdbcTypeForNull" value="OTHER" />
+		<!-- 开启二级缓存 -->
+		<setting name="cacheEnabled" value="true" />
+		<!-- 开启延迟加载 -->
+		<setting name="lazyLoadingEnabled" value="true" />
+		<!--将积极加载改为消极加载及按需加载 -->
+		<setting name="aggressiveLazyLoading" value="false" />
 	</settings>
 	<typeHandlers>
 		<typeHandler

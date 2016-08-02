@@ -142,10 +142,23 @@
 			<artifactId>lombok</artifactId>
 			<version>${lombok.version}</version>
 		</dependency>
+		<!-- thumbnailator.dependency -->
 		<dependency>
 			<groupId>net.coobird</groupId>
 			<artifactId>thumbnailator</artifactId>
 			<version>${thumbnailator.verrsion}</version>
+		</dependency>
+		<!-- asyn4j.dependency remark : downloads for https://code.google.com/archive/p/asyn4j/ -->
+		<dependency>
+			<groupId>xuan.wen.qin</groupId>
+			<artifactId>asyn4j</artifactId>
+			<version>1.0.0.RELEASE</version>
+		</dependency>
+		<!-- memcached.dependency reference http://www.mybatis.org/memcached-cache/ -->
+		<dependency>
+			<groupId>org.mybatis.caches</groupId>
+			<artifactId>mybatis-memcached</artifactId>
+			<version>1.0.0</version>
 		</dependency>
 	</dependencies>
 	<build>

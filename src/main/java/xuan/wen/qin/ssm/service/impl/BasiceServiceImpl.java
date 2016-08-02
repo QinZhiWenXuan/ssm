@@ -3,11 +3,13 @@ package xuan.wen.qin.ssm.service.impl;
 import java.util.Properties;
 
 import javax.annotation.PostConstruct;
+import javax.annotation.PreDestroy;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.context.annotation.Scope;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
@@ -27,6 +29,7 @@ import xuan.wen.qin.ssm.service.BasiceService;
  * @Address by siShangJie
  */
 @Service(value = "basiceService")
+@Scope("singleton")
 public abstract class BasiceServiceImpl implements BasiceService {
 	private static final Logger logger = LoggerFactory
 			.getLogger(BasiceServiceImpl.class);
@@ -45,12 +48,18 @@ public abstract class BasiceServiceImpl implements BasiceService {
 
 	@PostConstruct
 	@Async
-	private void init() {
+	protected void init() {
 		logger.info("basiceService init ....");
 		if (null == props) {
 			props = propertiesTools.readProperties();
 		}
 		rootPath = propertiesTools.getPropsByKey("root.path", props);
 		logger.debug("rootPath : {}", rootPath);
+	}
+
+	@PreDestroy
+	@Async
+	protected void destory() {
+		logger.info("basiceService destory ....");
 	}
 }

@@ -13,6 +13,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
+import org.springframework.util.StringUtils;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -72,7 +73,7 @@ public class FileController extends BasiceController {
 	 *            目标文件
 	 * @return 上传结果
 	 */
-	@RequestMapping(value = "upload.jspx", method = RequestMethod.POST, produces = MediaType.TEXT_PLAIN_VALUE)
+	@RequestMapping(value = "upload.jspx", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
 	@ResponseBody
 	public Callable<Map<String, Object>> upload(@Valid final UploadForm form,
 			@RequestParam("file") final MultipartFile file, BindingResult error) {
@@ -82,7 +83,12 @@ public class FileController extends BasiceController {
 			public Map<String, Object> call() throws Exception {
 				String fileName = fileService.upload(form,
 						file.getInputStream());
-				return null;
+				if (StringUtils.hasText(fileName)) {
+					jsonMap.put(CODE, SUCCESS_CODE);
+					jsonMap.put(MESSAGE, SUCCESS_MESSAGE);
+					jsonMap.put(INFO, fileName);
+				}
+				return jsonMap;
 			}
 
 		};

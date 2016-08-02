@@ -9,6 +9,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Component;
+import org.springframework.util.StringUtils;
 
 import xuan.wen.qin.ssm.common.utils.io.FileTools;
 
@@ -44,5 +45,35 @@ public class FileToolsImpl implements FileTools {
 		logger.debug("save begin ....");
 		Thumbnails.of(source).size(width, height).toFile(target);
 		logger.debug("save end ....");
+	}
+
+	/***
+	 * 创建目录
+	 * 
+	 * @param directory
+	 *            目录
+	 */
+	@Override
+	public void makeDir(String directory) {
+		if (StringUtils.hasText(directory)) {
+			this.makeDir(new File(directory));
+		}
+
+	}
+
+	/***
+	 * 创建目录
+	 * 
+	 * @param directory
+	 *            目录
+	 */
+	@Override
+	public void makeDir(File directory) {
+		if (null != directory) {
+			if (!directory.exists()) {
+				directory.mkdirs();
+			}
+		}
+
 	}
 }

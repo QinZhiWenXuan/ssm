@@ -35,7 +35,9 @@
 		<property name="useCodeAsDefaultMessage" value="false" />
 		<property name="cacheSeconds" value="60" />
 	</bean>
-
+	<bean id="multipartResolver"
+		class="org.springframework.web.multipart.support.StandardServletMultipartResolver">
+	</bean>
 	<!-- 配置试图解析器 -->
 	<mvc:view-resolvers>
 		<mvc:content-negotiation>

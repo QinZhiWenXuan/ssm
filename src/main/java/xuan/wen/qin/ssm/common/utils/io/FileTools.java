@@ -25,4 +25,20 @@ public interface FileTools {
 	 * @throws IOException
 	 */
 	void save(File target, File source) throws IOException;
+
+	/***
+	 * 创建目录
+	 * 
+	 * @param directory
+	 *            目录
+	 */
+	void makeDir(String directory);
+
+	/***
+	 * 创建目录
+	 * 
+	 * @param directory
+	 *            目录
+	 */
+	void makeDir(File directory);
 }

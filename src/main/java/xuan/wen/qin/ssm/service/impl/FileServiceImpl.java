@@ -5,6 +5,7 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.util.UUID;
 
 import net.coobird.thumbnailator.Thumbnails;
 
@@ -16,7 +17,6 @@ import xuan.wen.qin.ssm.service.FileService;
 
 import com.google.common.base.Optional;
 import com.google.common.io.ByteStreams;
-import com.google.common.io.Files;
 
 /**
  * FileServiceImpl<br>
@@ -32,6 +32,7 @@ import com.google.common.io.Files;
 public class FileServiceImpl extends BasiceServiceImpl implements FileService {
 	private static final int width = 240;
 	private static final int height = 240;
+	private final static String JPEG = "jpg";
 
 	/***
 	 * 把图片写出去
@@ -69,14 +70,21 @@ public class FileServiceImpl extends BasiceServiceImpl implements FileService {
 	 * @param inputStream
 	 *            InputStream
 	 * @return 文件名
-	 * @throws IOException 
+	 * @throws IOException
 	 */
 	@Override
-	public String upload(UploadForm form, InputStream inputStream) throws IOException {
+	public String upload(UploadForm form, InputStream inputStream)
+			throws IOException {
 		String directoryPath = rootPath + form.getPath();
 		File directory = new File(directoryPath);
-		Files.createParentDirs(directory);
-		return null;
+		fileTools.makeDir(directory);
+		String fileName = UUID.randomUUID().toString().toUpperCase()
+				.replaceAll("-", "");
+		String fullName = directoryPath + fileName;
+		File targetFile = new File(fullName);
+		Thumbnails.of(inputStream).size(width, height).outputFormat(JPEG)
+				.toFile(targetFile);
+		return fileName;
 	}
 
 }

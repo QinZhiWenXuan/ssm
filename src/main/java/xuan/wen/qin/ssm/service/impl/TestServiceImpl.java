@@ -23,6 +23,7 @@ import xuan.wen.qin.ssm.service.TestService;
 @Service(value = "testService")
 @Transactional(readOnly = true, rollbackFor = SsmException.class)
 public class TestServiceImpl extends BasiceServiceImpl implements TestService {
+
 	/***
 	 * 保存
 	 * 

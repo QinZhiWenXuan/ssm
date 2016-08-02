@@ -3,6 +3,7 @@
     PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="xuan.wen.qin.ssm.model.repository.mapper.TestMapper">
+	<cache type="org.mybatis.caches.memcached.MemcachedCache" />
 	<resultMap type="java.util.Map" id="basiceMap">
 		<result property="id" column="id" javaType="java.lang.Integer" />
 		<result property="remark" column="remark" javaType="java.lang.String" />
@@ -25,10 +26,11 @@
 			jdbcType="TIMESTAMP" typeHandler="xuan.wen.qin.ssm.common.ibatis.type.CustomTimeStampHandler" />
 	</resultMap>
 
-	<select id="query" statementType="STATEMENT" useCache="true"
+	<select id="query" statementType="STATEMENT" useCache="true" 
 		resultMap="basiceMap">
 		<include refid="queryBasiceSQL" />
 	</select>
+
 
 	<select id="queryById" statementType="STATEMENT" useCache="true"
 		resultMap="basiceMap">
